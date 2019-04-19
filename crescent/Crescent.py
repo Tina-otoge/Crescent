@@ -24,10 +24,10 @@ class TemplateDoesNotHaveKeyError(Exception):
 class Crescent:
 
     def __init__(self):
-        self.base_dir = self.get_base_dir()
+        self.base_dir = self.get_config_dir()
         self.make_base_dir()
 
-    def get_base_dir(self):
+    def get_config_dir(self):
         if 'XDG_CONFIG_DIR' in os.environ.keys():
             config_dir = os.environ['XDG_CONFIG_DIR']
         else:
@@ -60,7 +60,7 @@ class Crescent:
             pass
 
     def get_app_path(self, path):
-        result = self.get_base_dir()
+        result = self.get_config_dir()
         if isinstance(path, str):
             return os.path.join(result, path)
         for path in paths:
