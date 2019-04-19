@@ -67,16 +67,21 @@ config  - Write Crescent's config folder path to stdout
 # How to install it?
 
 ## Linux
-Head to the [Releases page](releases) and download the latest `crescent-linux-compressed-python-executable`, rename it to something more convenient (e.g., `crescent`) and place it somewhere in your PATH (e.g.,`~/.local/bin`)
+Head to the [Releases page][releaes] and download the latest `crescent-linux-compressed-python-executable`, rename it to something more convenient (e.g., `crescent`) and place it somewhere in your PATH (e.g.,`~/.local/bin`)
 
 ## Cross-platform
 I don't think this makes any sense since Desktop Entries are probably a Linux only thing... but Crescent should be able to write the generated files on any platform.
 
-Download the latest stable version of the source code from the [Releases page](releases), run it with `python3 path/to/the/folder`.
+Download the latest stable version of the source code from the [Releases page][releases], run it with `python3 path/to/the/folder`.
 
 # How to help?
-Spotted an issue? Let me now by [opening one here on GitHub](issues)!
+Spotted an issue? Let me now by [opening one here on GitHub][new issue]!
 
-Want to ask for a new feature? Well, [open an issue too](issues).
+Want to ask for a new feature? Well, [open an issue too][new issue].
 
-Want to fix a bug or add a feature yourself? [Fork this repository](fork) and [submit a Pull Request](compare)!
+Want to fix a bug or add a feature yourself? [Fork this repository][fork] and [submit a Pull Request][pr]!
+
+[releases]: https://github.com/skielred/Crescent/releases
+[new issue]: https://github.com/skielred/Crescent/issues/new
+[fork]: https://github.com/skielred/Crescent/fork
+[pr]: https://github.com/skielred/Crescent/compare
