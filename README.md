@@ -72,7 +72,7 @@ Head to the [Releases page][releases] and download the latest `crescent-linux-co
 ## Cross-platform
 I don't think this makes any sense since Desktop Entries are probably a Linux only thing... but Crescent should be able to write the generated files on any platform.
 
-Download the latest stable version of the source code from the [Releases page][releases], run it with `python3 path/to/the/folder`.
+Download the latest stable version of the source code from the [Releases page][releases], run it with `python3 path/to/the/source/folder`.
 
 # How to help?
 Spotted an issue? Let me now by [opening one here on GitHub][new issue]!
