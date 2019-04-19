@@ -67,7 +67,7 @@ config  - Write Crescent's config folder path to stdout
 # How to install it?
 
 ## Linux
-Head to the [Releases page][releaes] and download the latest `crescent-linux-compressed-python-executable`, rename it to something more convenient (e.g., `crescent`) and place it somewhere in your PATH (e.g.,`~/.local/bin`)
+Head to the [Releases page][releases] and download the latest `crescent-linux-compressed-python-executable`, rename it to something more convenient (e.g., `crescent`) and place it somewhere in your PATH (e.g.,`~/.local/bin`)
 
 ## Cross-platform
 I don't think this makes any sense since Desktop Entries are probably a Linux only thing... but Crescent should be able to write the generated files on any platform.
