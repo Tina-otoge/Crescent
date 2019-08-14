@@ -20,6 +20,10 @@ class TemplateDoesNotHaveKeyError(Exception):
             )
         )
 
+class InvalidConfigFile(Exception):
+    def __init__(self, file_name):
+        super().__init__('Invalid config file "{}"'.format(file_name))
+
 
 class Crescent:
 
@@ -82,8 +86,7 @@ class Crescent:
                 apps[app]['Name'] = app
             return apps
         except json.JSONDecodeError:
-            #TODO log/errors
-            print('Invalid JSON formatted list file. Exiting.', file=sys.stderr)
+            raise InvalidConfigFile(file_name)
 
     def get_crescent_apps(self):
         apps = self.get_app_json('apps.json')
@@ -106,11 +109,14 @@ class Crescent:
 
     def build_app_entry(self, app, templates):
         if app.template is None:
-            return Application(app)
+            return app
         template = templates.get(app.template, None)
         if template is None:
             raise TemplateDoesNotExistError(app.template)
         templating_keys = app.templating
+        for key in template.templating:
+            if key not in app.templating:
+                app.templating[key] = template.templating[key]
         for key in template.templating:
             app.keys[key] = template.templating[key].format(**templating_keys)
         for key in template.keys:
