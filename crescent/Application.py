@@ -1,20 +1,25 @@
 from enum import Enum
 
+
 class ApplicationKeyError(Exception):
     def __init__(self, key, msg='Invalid key "{}"'):
         super().__init__(msg.format(key))
+
 
 class ApplicationKeyTypeError(ApplicationKeyError):
     def __init__(self, key):
         super().__init__(key, msg='Invalid key type for "{}"')
 
+
 class ApplicationUnknownKeyError(ApplicationKeyError):
     def __init__(self, key):
         super().__init__(key, msg='Non-standard key "{}"')
 
+
 class ApplicationMissingRequiredKeyError(ApplicationKeyError):
     def __init__(self, key):
         super().__init__(key, msg='Missing required key "{}"')
+
 
 class Application:
     class Type(Enum):
@@ -77,7 +82,7 @@ class Application:
             except KeyError:
                 raise ApplicationMissingRequiredKeyError(key)
         for key in kwargs:
-            if not key in Application.LEGAL_KEYS:
+            if key not in Application.LEGAL_KEYS:
                 raise ApplicationUnknownKeyError(key)
             if not isinstance(kwargs[key], Application.LEGAL_KEYS[key]):
                 raise ApplicationKeyTypeError(key)
@@ -106,7 +111,7 @@ class Application:
                 keys.append(key)
         if keys:
             msg += ' ' + ', '.join([
-                '{key}={value}'.format(key=key, value=self.keys[key]) for \
+                '{key}={value}'.format(key=key, value=self.keys[key]) for
                 key in self.keys
             ])
         return msg

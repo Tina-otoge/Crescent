@@ -1,15 +1,15 @@
 import os
 import json
-import sys
 import subprocess
 
-from .Application import Application
 from .CrescentApplication import CrescentApplication
 from .CrescentTemplate import CrescentTemplate
+
 
 class TemplateDoesNotExistError(Exception):
     def __init__(self, key):
         super().__init__('Crescent Template "{}" does not exist'.format(key))
+
 
 class TemplateDoesNotHaveKeyError(Exception):
     def __init__(self, template, key):
@@ -19,6 +19,7 @@ class TemplateDoesNotHaveKeyError(Exception):
                 key
             )
         )
+
 
 class InvalidConfigFile(Exception):
     def __init__(self, file_name):
@@ -38,7 +39,7 @@ class Crescent:
             try:
                 config_dir = os.path.join(os.environ['HOME'], '.config')
             except KeyError:
-                #TODO proper error
+                # TODO proper error
                 raise Exception('Empty environment variable HOME')
         return os.path.join(config_dir, type(self).__name__.lower())
 
@@ -49,7 +50,7 @@ class Crescent:
             try:
                 data_dir = os.path.join(os.environ['HOME'], '.local', 'share')
             except KeyError:
-                #TODO proper error
+                # TODO proper error
                 raise Exception('Empty environment variable HOME')
         return os.path.join(
             data_dir,
@@ -67,9 +68,10 @@ class Crescent:
         result = self.get_config_dir()
         if isinstance(path, str):
             return os.path.join(result, path)
-        for path in paths:
-            result = os.path.join(result, path)
-        return result
+        return None
+        # for path in paths:
+        #     result = os.path.join(result, path)
+        # return result
 
     def get_app_json(self, file_name):
         path = self.get_app_path(file_name)
@@ -103,7 +105,7 @@ class Crescent:
     def get_apps(self):
         templates = self.get_crescent_templates()
         return [
-            self.build_app_entry(app, templates) \
+            self.build_app_entry(app, templates)
             for app in self.get_crescent_apps().values()
         ]
 
@@ -133,7 +135,7 @@ class Crescent:
         leftovers = [i for i in files if i not in defined_apps]
         for name in leftovers:
             path = os.path.join(apps_dir, name)
-            #TODO logging
+            # TODO logging
             print('Deleting file {}'.format(path))
             os.remove(path)
 
@@ -143,7 +145,7 @@ class Crescent:
             apps = self.get_apps()
         for app in apps:
             path = os.path.join(apps_dir, app.get_filename())
-            #TODO logging
+            # TODO logging
             print('Writing Desktop entry {}'.format(path))
             with open(path, 'w+') as f:
                 f.write(app.create_file_content())
