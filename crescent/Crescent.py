@@ -30,7 +30,9 @@ class Crescent:
 
     def __init__(self):
         self.base_dir = self.get_config_dir()
-        self.make_base_dir()
+        self.apps_dir = self.get_apps_dir()
+        self.safe_mkdir(self.base_dir)
+        self.safe_mkdir(self.apps_dir)
 
     def get_config_dir(self):
         if 'XDG_CONFIG_DIR' in os.environ.keys():
@@ -58,9 +60,9 @@ class Crescent:
             type(self).__name__.lower()
         )
 
-    def make_base_dir(self):
+    def safe_mkdir(self, path):
         try:
-            os.makedirs(self.base_dir)
+            os.makedirs(path)
         except FileExistsError:
             pass
 
@@ -127,24 +129,22 @@ class Crescent:
         return app
 
     def remove_leftovers(self, apps=None):
-        apps_dir = self.get_apps_dir()
         if not apps:
             apps = self.get_apps()
         defined_apps = [app.get_filename() for app in apps]
-        files = [i for i in os.listdir(apps_dir) if i.endswith('.desktop')]
+        files = [i for i in os.listdir(self.apps_dir) if i.endswith('.desktop')]
         leftovers = [i for i in files if i not in defined_apps]
         for name in leftovers:
-            path = os.path.join(apps_dir, name)
+            path = os.path.join(self.apps_dir, name)
             # TODO logging
             print('Deleting file {}'.format(path))
             os.remove(path)
 
     def write_entries(self, apps=None):
-        apps_dir = self.get_apps_dir()
         if not apps:
             apps = self.get_apps()
         for app in apps:
-            path = os.path.join(apps_dir, app.get_filename())
+            path = os.path.join(self.apps_dir, app.get_filename())
             # TODO logging
             print('Writing Desktop entry {}'.format(path))
             with open(path, 'w+') as f:
