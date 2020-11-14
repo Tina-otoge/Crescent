@@ -30,7 +30,7 @@ if __name__ == '__main__':
         'path': get_path,
         'config': get_config,
     }
-    if len(sys.argv) is not 2 or sys.argv[1] not in commands:
+    if len(sys.argv) != 2 or sys.argv[1] not in commands:
         print(USAGE, file=sys.stderr)
         sys.exit(1)
     commands[sys.argv[1]]()
